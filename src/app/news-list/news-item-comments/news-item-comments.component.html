@@ -1,0 +1,6 @@
+<ul>
+  <li *ngFor="let comment of comments">
+    <p [innerHTML]="comment.text"></p>
+    <app-news-item-comments *ngIf="comment.comments" [comments]="comment.comments"></app-news-item-comments>
+  </li>
+</ul>
