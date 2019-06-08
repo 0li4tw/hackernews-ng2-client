@@ -1,1 +1,6 @@
-<li (click)="handleClick()"><h1>{{story.title}}</h1></li>
+<li (click)="handleClick()">
+  <h2>{{story.title}}
+    <small>(<a target="_blank" [href]="story.url">view</a>)</small>
+  </h2>
+  <app-news-item-comments *ngIf="story.children" [comments]="story.children"></app-news-item-comments>
+</li>

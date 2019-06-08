@@ -22,10 +22,11 @@ export class ItemService {
     return this.http.get<Item>(`${HACKERNEWS_API_URL}/item/${id}.json`);
   }
 
-  getAllKidsForItems<T extends Item>(children: T[]): T[] {
-    children.map(async child => {
+  async getAllKidsForItems<T extends Item>(children: T[]): Promise<T[]> {
+    for (const child of children) {
       await this.travsereItemKids(child);
-    });
+
+    }
 
     return children;
   }
@@ -35,9 +36,11 @@ export class ItemService {
     return item;
   }
 
-  async travsereItemKids<T extends Item>(item: T): Promise<void> {
+  // TODO: Add type safety to getting kids/comments
+  async travsereItemKids(item: any): Promise<void> {
     if (item.kids) {
-      item.children = await Promise.all(item.kids.map(id => this.getItem(id).toPromise()));
+      item.children = await Promise.all(item.kids.map((id: number) => this.getItem(id).toPromise()));
+      item.children = item.children.filter((child: any) => child !== null && child.deleted !== true);
       await this.getAllKidsForItems(item.children);
     }
   }

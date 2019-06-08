@@ -10,8 +10,12 @@ export class NewsListItemComponent {
 
   @Input() story: Story;
   @Output() loadComments = new EventEmitter();
+  private clicked = false;
 
   handleClick() {
-    this.loadComments.emit(this.story.id);
+    if (!this.clicked) {
+      this.clicked = true;
+      this.loadComments.emit(this.story.id);
+    }
   }
 }

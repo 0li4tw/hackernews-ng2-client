@@ -1,3 +1,9 @@
-<ul>
-  <app-news-list-item *ngFor="let story of (topStories$|async)" [story]="story" (loadComments)="loadComments($event)"></app-news-list-item>
-</ul>
+<ng-container *ngIf="(topStories$|async) as stories">
+  <ul>
+    <app-news-list-item *ngFor="let story of stories" [story]="story"
+                        (loadComments)="loadComments($event)"></app-news-list-item>
+  </ul>
+
+  <button [disabled]="(page$|async) === 1" (click)="previousPage()">Previous Page</button>
+  <button [disabled]="(topStories$|async).length < 9" (click)="nextPage()">Next Page</button>
+</ng-container>
