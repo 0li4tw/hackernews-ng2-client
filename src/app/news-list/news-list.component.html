@@ -1,7 +1,6 @@
 <ng-container *ngIf="(topStories$|async) as stories">
   <ul>
-    <app-news-list-item *ngFor="let story of stories" [story]="story"
-                        (loadComments)="loadComments($event)"></app-news-list-item>
+    <app-news-list-item *ngFor="let story of stories" [story]="story"></app-news-list-item>
   </ul>
 
   <button [disabled]="(page$|async) === 1" (click)="previousPage()">Previous Page</button>

@@ -1,6 +1,7 @@
-<li (click)="handleClick()">
-  <h2>{{story.title}}
+<li>
+  <h2 (click)="loadComments()">{{story.title}}
     <small>(<a target="_blank" [href]="story.url">view</a>)</small>
   </h2>
-  <app-news-item-comments *ngIf="story.children" [comments]="story.children"></app-news-item-comments>
+  <app-news-item-comments *ngIf="(comments$|async) as comments" [comments]="comments"></app-news-item-comments>
+  <p *ngIf="loading$|async">Loading comments...</p>
 </li>

@@ -23,10 +23,6 @@ export class NewsListComponent implements OnInit {
     this.page$ = this.storyService.topStories$.pipe(map(storyPage => storyPage.page));
   }
 
-  loadComments(id: number) {
-    this.storyService.getStoryComments(id);
-  }
-
   nextPage() {
     this.storyService.nextPage().subscribe();
   }

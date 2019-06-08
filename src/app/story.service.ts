@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Story } from './models/story';
-import { switchMap, tap } from 'rxjs/operators';
+import { shareReplay, switchMap, tap } from 'rxjs/operators';
 import { HACKERNEWS_API_URL, ItemService } from './item.service';
 import { StoryPage } from './models/story-page';
 import * as _ from 'lodash';
@@ -22,7 +22,7 @@ export class StoryService {
   }
 
   private get topStoryIds$(): Observable<any> {
-    return this.http.get(`${HACKERNEWS_API_URL}/topstories.json`);
+    return this.http.get(`${HACKERNEWS_API_URL}/topstories.json`).pipe(shareReplay());
   }
 
   private getTopStories(): Observable<any> {
@@ -40,20 +40,6 @@ export class StoryService {
     );
   }
 
-  async getStoryComments(id: number) {
-    const clonedStories = _.cloneDeep(this.topStoriesSubject.getValue().stories);
-    const clonedStory = clonedStories.find(story => story.id === id);
-
-    await this.itemService.getKidsForItem(clonedStory);
-
-    const stories = clonedStories.map(story => {
-      return story.id === id ? clonedStory : story;
-    });
-
-    this.topStoriesSubject.next({stories, page: this.page});
-
-  }
-
   nextPage() {
     this.page++;
     return this.getTopStories();
@@ -69,5 +55,9 @@ export class StoryService {
 
   loadFirstPage() {
     return this.getTopStories();
+  }
+
+  cloneStories(): Story[] {
+    return _.cloneDeep(this.topStoriesSubject.getValue().stories);
   }
 }

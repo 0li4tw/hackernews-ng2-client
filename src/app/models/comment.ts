@@ -6,4 +6,6 @@ export interface Comment extends Item {
   text?: string;
   time?: number;
   type: 'comment';
+  comments?: Comment[];
+  kids?: number[];
 }

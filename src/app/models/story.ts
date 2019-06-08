@@ -9,4 +9,5 @@ export interface Story extends Item {
   title?: string;
   url?: string;
   type: 'story';
+  comments: Comment[];
 }
