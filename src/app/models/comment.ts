@@ -1,7 +1,7 @@
-export interface Comment {
-  id: number;
+import { Item } from './item';
+
+export interface Comment extends Item {
   by?: string;
-  kids?: number[];
   parent?: number;
   text?: string;
   time?: number;

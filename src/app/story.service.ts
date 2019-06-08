@@ -14,7 +14,6 @@ export class StoryService {
 
   private topStoriesSubject: BehaviorSubject<Story[]> = new BehaviorSubject(null);
   public topStories$ = this.topStoriesSubject.asObservable();
-  private page = 1;
 
   constructor(public http: HttpClient, private itemService: ItemService) {
     this.getTopStories();
@@ -35,5 +34,11 @@ export class StoryService {
       .subscribe((stories: Story[]) => {
         this.topStoriesSubject.next(stories);
       });
+  }
+
+  async getStoryComments(id: number): Promise<void> {
+    const story = this.topStoriesSubject.value.find(item => item.id === id);
+    await this.itemService.getKidsForItem(story);
+    this.topStoriesSubject.next(this.topStoriesSubject.value);
   }
 }

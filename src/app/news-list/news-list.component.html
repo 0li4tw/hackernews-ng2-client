@@ -1,3 +1,3 @@
 <ul>
-  <app-news-list-item *ngFor="let story of (topStories$|async)" [story]="story"></app-news-list-item>
+  <app-news-list-item *ngFor="let story of (topStories$|async)" [story]="story" (loadComments)="loadComments($event)"></app-news-list-item>
 </ul>

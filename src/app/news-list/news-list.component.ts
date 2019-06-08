@@ -19,4 +19,7 @@ export class NewsListComponent implements OnInit {
     this.topStories$ = this.storyService.topStories$;
   }
 
+  loadComments(id: number) {
+    this.storyService.getStoryComments(id);
+  }
 }

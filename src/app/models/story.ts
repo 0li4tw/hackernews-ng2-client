@@ -1,5 +1,6 @@
-export interface Story {
-  id: number;
+import { Item } from './item';
+
+export interface Story extends Item {
   by?: string;
   descendants?: number;
   kids?: number[];

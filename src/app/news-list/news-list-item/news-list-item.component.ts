@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Story } from '../../models/story';
 
 @Component({
@@ -6,14 +6,12 @@ import { Story } from '../../models/story';
   templateUrl: './news-list-item.component.html',
   styleUrls: ['./news-list-item.component.scss']
 })
-export class NewsListItemComponent implements OnInit {
+export class NewsListItemComponent {
 
   @Input() story: Story;
+  @Output() loadComments = new EventEmitter();
 
-  constructor() {
+  handleClick() {
+    this.loadComments.emit(this.story.id);
   }
-
-  ngOnInit() {
-  }
-
 }
