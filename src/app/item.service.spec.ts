@@ -4,7 +4,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { findStoryById, STORIES } from '../../test-data/stories';
 import { of } from 'rxjs';
 
-fdescribe('ItemService', () => {
+describe('ItemService', () => {
 
   let itemService: ItemService;
   let httpTestingController: HttpTestingController;
@@ -38,6 +38,8 @@ fdescribe('ItemService', () => {
     expect(req.request.method).toBe('GET');
 
     req.flush(STORIES[itemId]);
+
+    httpTestingController.verify();
   });
 
   it('should return an array of items', () => {
@@ -58,10 +60,6 @@ fdescribe('ItemService', () => {
 
     expect(itemService.getItem).toHaveBeenCalledTimes(3);
 
-  });
-
-  afterEach(() => {
-    httpTestingController.verify();
   });
 
 });

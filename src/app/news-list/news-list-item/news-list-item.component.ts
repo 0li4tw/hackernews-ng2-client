@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./news-list-item.component.scss'],
   providers: [CommentsService]
 })
-export class NewsListItemComponent implements OnInit {
+export class NewsListItemComponent {
 
   @Input() story: Story;
   private clicked = false;
@@ -20,15 +20,10 @@ export class NewsListItemComponent implements OnInit {
   constructor(private commentsService: CommentsService) {
   }
 
-  ngOnInit(): void {
-    this.comments$ = this.commentsService.comments$;
-    this.loading$ = this.commentsService.loading$;
-  }
-
   loadComments() {
     if (!this.clicked) {
       this.clicked = true;
-      this.commentsService.loadComments(this.story);
+      this.comments$ = this.commentsService.loadComments(this.story);
     }
   }
 }

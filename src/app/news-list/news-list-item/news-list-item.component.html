@@ -3,5 +3,5 @@
     <small>(<a target="_blank" [href]="story.url">view</a>)</small>
   </h2>
   <app-news-item-comments *ngIf="(comments$|async) as comments" [comments]="comments"></app-news-item-comments>
-  <p *ngIf="loading$|async">Loading comments...</p>
+  <p *ngIf="clicked && !(comments$|async)">Loading comments...</p>
 </li>
