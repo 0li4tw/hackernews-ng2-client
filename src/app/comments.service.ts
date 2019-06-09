@@ -19,8 +19,14 @@ export class CommentsService {
   async loadComments(story: Story): Promise<void> {
     this.startLoading();
     story = _.cloneDeep(story);
-    const comments = await this.getComments(story);
-    this.commentsSubject.next(comments);
+
+    try {
+      const comments = await this.getComments(story);
+      this.commentsSubject.next(comments);
+    } catch (err) {
+      console.error(err);
+      this.commentsSubject.next([]);
+    }
     this.endLoading();
   }
 
